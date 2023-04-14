@@ -1,44 +1,47 @@
-#henriqe vera
-#401
+# henrique vera
+# 401
 import arcade
 import random
-#limitation de lecran
+
+# limitation de lecran
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-#on cree le ball et ses attributs
+
+# on cree le ball et ses attributs
 
 class Ball:
-    def __init__(self, x, y, change_x, change_y, radius, color):
+    def __init__(self, x, y, change_x, change_y, rayon, color):
         self.x = x
         self.y = y
         self.change_x = change_x
         self.change_y = change_y
-        self.radius = radius
+        self.rayon = rayon
         self.color = color
 
-#update sur le mouvement
-    
+    # update sur le mouvment
+
     def update(self):
         self.x += self.change_x
         self.y += self.change_y
-        if self.x < self.radius:
+        if self.x < self.rayon:
             self.change_x *= -1
-            self.x = self.radius
-        if self.x > SCREEN_WIDTH - self.radius:
+            self.x = self.rayon
+        if self.x > SCREEN_WIDTH - self.rayon:
             self.change_x *= -1
-            self.x = SCREEN_WIDTH - self.radius
-        if self.y < self.radius:
+            self.x = SCREEN_WIDTH - self.rayon
+        if self.y < self.rayon:
             self.change_y *= -1
-            self.y = self.radius
-        if self.y > SCREEN_HEIGHT - self.radius:
+            self.y = self.rayon
+        if self.y > SCREEN_HEIGHT - self.rayon:
             self.change_y *= -1
-            self.y = SCREEN_HEIGHT - self.radius
+            self.y = SCREEN_HEIGHT - self.rayon
 
     def draw(self):
-        arcade.draw_circle_filled(self.x, self.y, self.radius, self.color)
+        arcade.draw_circle_filled(self.x, self.y, self.rayon, self.color)
 
-#on cree le recatbgle et ses attributs
+
+# on cree le recatbgle et ses attributs
 
 class Rectangle():
     def __init__(self, width, center_x, center_y, color, height):
@@ -57,20 +60,22 @@ class Rectangle():
         self.center_x += self.change_x
         self.center_y += self.change_y
         if self.center_y > SCREEN_HEIGHT:
-            self.change_y *=-1
-        if self.center_y < 0 :
+            self.change_y *= -1
+        if self.center_y < 0:
             self.change_y *= -1
         if self.center_x > SCREEN_WIDTH:
             self.change_x *= -1
         if self.center_x < 0:
             self.change_x *= -1
 
+
 class MyGame(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Exercise #1")
         self.ball_list = []
         self.rectangle_list = []
-#on dessine lorsue click
+
+    # on dessine lorsue click
     def on_mouse_press(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT:
             color = arcade.color.RED
@@ -82,14 +87,16 @@ class MyGame(arcade.Window):
             rectangle = Rectangle(random.randint(20, 50), x, y, color, random.randint(20, 50))
             self.rectangle_list.append(rectangle)
 
-#on retourne sur la liste pour finaolement dessiner
-   
-   def on_draw(self):
+    # on retourne sur la liste pour finaolement dessiner
+
+
+    def on_draw(self):
         arcade.start_render()
         for ball in self.ball_list:
             ball.draw()
         for rectangle in self.rectangle_list:
             rectangle.draw()
+
 
     def on_update(self, delta_time):
         for ball in self.ball_list:
@@ -97,9 +104,9 @@ class MyGame(arcade.Window):
         for rectangle in self.rectangle_list:
             rectangle.update()
 
-def main():
-    my_game = MyGame()
-    arcade.run()
 
-if __name__ == "__main__":
-    main()
+def main():
+    if __name__ == "__main__":
+        my_game = MyGame()
+        arcade.run()
+main()
